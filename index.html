@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semaine A/B</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0; /* Fond légèrement gris pour contraster */
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pancarte {
+      border: 10px solid #333; /* Bordure épaisse noire */
+      padding: 40px;
+      text-align: center;
+      width: 500px; /* Augmenté pour une plus grande taille */
+      box-shadow: 0 15px 20px rgba(0, 0, 0, 0.3); /* Ombre pour l'effet de profondeur */
+      border-radius: 20px; /* Coins arrondis */
+      background-color: transparent; /* Fond transparent */
+      position: relative;
+    }
+
+    h1 {
+      font-size: 4rem; /* Taille augmentée */
+      margin: 0;
+    }
+
+    .rope {
+      width: 8px; /* Corde plus large */
+      height: 60px;
+      background-color: #333; /* Les cordes qui "suspendent" la pancarte */
+      margin-top: -20px;
+    }
+
+    .rope:first-child {
+      margin-right: 100px;
+    }
+
+    .rope:last-child {
+      margin-left: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="pancarte">
+      <h1 id="semaine-display">Semaine A ou B</h1>
+    </div>
+    <div class="rope"></div>
+    <div class="rope"></div>
+  </div>
+
+  <script>
+    function getWeekNumber() {
+      const currentDate = new Date();
+      const startOfYear = new Date(currentDate.getFullYear(), 0, 1);
+      const daysBetween = Math.floor((currentDate - startOfYear) / (24 * 60 * 60 * 1000));
+      return Math.ceil((daysBetween + startOfYear.getDay() + 1) / 7);
+    }
+
+    function displayWeek() {
+      const weekNumber = getWeekNumber();
+      const display = document.getElementById('semaine-display');
+
+      if (weekNumber % 2 === 0) {
+        display.textContent = "Semaine A";
+        display.style.color = "red";  // Texte en rouge pour "Semaine A"
+      } else {
+        display.textContent = "Semaine B";
+        display.style.color = "blue"; // Texte en bleu pour "Semaine B"
+      }
+    }
+
+    window.onload = displayWeek;
+  </script>
+</body>
+</html>
